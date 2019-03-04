@@ -1,0 +1,114 @@
+%-*- coding: UTF-8 -*-
+% !TeX root = ./lmlab-design.tex
+% !TEX TS-program = xelatex
+% !TEX encoding = UTF-8 Unicode
+
+%\documentclass[10pt, a4paper]{book}
+%\documentclass[11pt]{report}
+%\documentclass[10pt, a4paper]{article}
+\documentclass[UTF8, 10pt, a4paper]{ctexart}
+% fontawesome
+\usepackage{fontawesome}
+\usepackage{fontspec,xltxtra,xunicode}
+
+\usepackage{geometry}
+\geometry{a4paper,left=3cm,right=2cm,top=3cm,bottom=3cm}
+
+% 使用彩色
+\usepackage{color}
+
+%支持嵌入图像
+\usepackage{graphicx}
+\usepackage{subfigure}
+
+%使用注释
+\usepackage{comment}
+\usepackage{marginnote}
+
+%使用remarker listings 实现代码语法高亮 和批注
+\include{lmdoc_remarker}
+
+\usepackage{xeCJK}
+
+\usepackage{draftwatermark}
+\SetWatermarkText{内部文档}
+\SetWatermarkScale{0.33}%设置水印的显示大小
+
+%设置中文字体
+\setCJKmainfont{微软雅黑-Regular}   % 设置缺省中文字体
+\setCJKmonofont{微软雅黑-light}   % 设置等宽字体
+%设置英文字体
+\setmainfont{Times New Roman}   % 英文衬线字体
+\setsansfont{Verdana}
+\setmonofont{Courier New}   % 英文等宽字体
+
+%设置首行缩进
+\usepackage{indentfirst}
+
+\defaultfontfeatures{Mapping=tex-text}
+\XeTeXlinebreaklocale “zh”
+\XeTeXlinebreakskip = 0pt plus 1pt minus 0.1pt  %文章内中文自动换行
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\lfoot{内部文档}
+\cfoot{\thepage}
+%\rfoot{何浩 <hehaoslj@sina.com>}
+\fancyhead[C]{Sprint1}
+\fancyhead[L]{LMLab设计文档}
+\fancyhead[R]{\leftmark}
+
+
+\title{LMLAB设计文档}
+\author{何浩 hehaoslj@sina.com}
+\date{\today}
+
+\bibliographystyle{plain}
+\begin{document}
+%首页%
+\maketitle
+
+\begin{abstract}
+
+LMLab是一个全新的建模与仿真软件系统，可运行在从笔记本电脑到服务器集群的多尺度处理环境上，服务于数据分析与系统研究人员，支持快速建模与集成开发，其主要特点是一提供一种实验设计引擎，支持层次化快速对系统建模，二提供一种全新的高性能仿真运行时环境（RTE），支持代码热编辑功能，可以不重启仿真系统的情况下热替换正在运行的仿真模型。
+
+\end{abstract}
+
+\textbf{\normalsize 关键字：LMLab，LMICE，RTE，仿真设计语言，建模与仿真}
+
+
+%目录%
+\tableofcontents
+
+%%
+\section {简介}
+
+
+LMLab系统由 执行管理器（em），运行时环境（lmiced），仿真系统设计语言（lmscript），运行中间件（lmrte）组成。LMICE\footnote{LMICE: LMICE Message Interacting Computation Environment的首字母缩写，一种网络计算与信息通讯技术}是LMLab的支撑技术。
+
+用户使用实验设计语言创建、配置系统模型。
+
+用户通过执行管理器与运行时环境通讯，实现系统运行、配置调整、结果分析。
+
+\section{仿真系统设计语言}
+
+仿真系统设计语言，用组成图、消息表、状态机图、模板代码框架等来设计系统组成模型、定义系统消息、系统事件机制、算法与计算模型、配置系统参数。
+
+\section{执行管理器与运行时环境}
+
+执行管理器与运行时环境基于客户端-服务器端模式，实现系统与用户交互式执行。
+
+\section{运行中间件}
+
+运行中间件提供运行时环境的访问接口抽象封装，用以支持第三方应用开发，支持其他异构系统接入到LMLab系统中来。
+
+\section{案例1：股票数据分析应用}
+
+这里给出一个应用LMLab系统实现股票数据分析系统的效果。
+
+\section{结论}
+
+综上所述，LMLab是一个高效率的开发数据分析、系统仿真的环境，不但在设计与分析中为用户提供好处，而且其运行效率与支持的交互执行模式可以给尝试式分析系统提供好处。
+
+\end{document}
