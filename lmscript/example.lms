@@ -1,0 +1,68 @@
+Title:  Alpha系统测试模型
+Author: He Hao<hehaoslj@sina.com>
+Date:   2019, April
+
+# Alpha 线性回归系统模型
+
+
+## 系统环境
+
+
+### 数据描述
+
+通过文件系统读入分钟K线数据，数据类型与结构如下
+
+*  RawTick数据 (文件名 <yyyyMMDDCode>-L2_Tick)
+*  KData数据 （文件名 <Code>.<Type>.kdata)
+*  yyyyMMDD 表示某年月日的日期；Code表示股票代码；Type表示K线类型，如Min_1
+
+
+### 载入文件数据
+
+从本地环境载入如下K线数据
+stockdata = from "D:\work\data" import(20180101, 20190101) kdata [603861, 603802]
+
+载入Tick数据
+comment: tickdata = from "D:\work\data" import(20180101, 20180201) kdata [603861, 603802]
+
+### 定义算法
+
+支持使用 C++, Python, lmpython, lmcpp 等多种代码混合编写。
+
+$#~~~lmpython~~~
+
+# 1. 引入系统环境 ctx
+$def with(ctx)
+
+# 2. 返回系统环境中 stockdata的数量
+def py_datafile_count():
+    a = $:(ctx).stockdata
+    return len(a)
+
+
+$#~~~lmpython~~~
+
+
+$#~~~lmcpp~~~
+
+// 1. 引入系统环境 ctx
+$def with(ctx)
+
+
+
+// 2. 返回系统环境中 stockdata的数量
+int cpp_datafile_count() {
+    int a = $:(ctx).stockdata.size() ;
+    return a;
+}
+
+
+$#~~~lmcpp~~~
+
+
+
+comment: asf
+
+注释： 手段获得三个
+
+

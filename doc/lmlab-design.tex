@@ -31,7 +31,7 @@
 \usepackage{xeCJK}
 
 \usepackage{draftwatermark}
-\SetWatermarkText{内部文档}
+\SetWatermarkText{LMLab}
 \SetWatermarkScale{0.33}%设置水印的显示大小
 
 %设置中文字体
@@ -45,16 +45,20 @@
 %设置首行缩进
 \usepackage{indentfirst}
 
+%设置行间距
+\linespread{1.5}
+
 \defaultfontfeatures{Mapping=tex-text}
-\XeTeXlinebreaklocale “zh”
+\XeTeXlinebreaklocale "zh"
 \XeTeXlinebreakskip = 0pt plus 1pt minus 0.1pt  %文章内中文自动换行
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{}
-\lfoot{内部文档}
-\cfoot{\thepage}
+\lfoot{LMice.Org}
+\rfoot{内部文档}
 %\rfoot{何浩 <hehaoslj@sina.com>}
+\cfoot{\thepage}
 \fancyhead[C]{Sprint1}
 \fancyhead[L]{LMLab设计文档}
 \fancyhead[R]{\leftmark}
@@ -71,11 +75,18 @@
 
 \begin{abstract}
 
-LMLab是一个全新的建模与仿真软件系统，可运行在从笔记本电脑到服务器集群的多尺度处理环境上，服务于数据分析与系统研究人员，支持快速建模与集成开发，其主要特点是一提供一种实验设计引擎，支持层次化快速对系统建模，二提供一种全新的高性能仿真运行时环境（RTE），支持代码热编辑功能，可以不重启仿真系统的情况下热替换正在运行的仿真模型。
+LMLab \footnote{LMLab: Lmice Laboratory LMICE系统实验室} 系统实验室
+是全新的建模与仿真软件系统，可运行在从笔记本电脑到服务器集群的多尺度处理
+环境上，服务于数据分析与系统研究人员，支持快速建模与集成开发，其主要特点是一提供一
+种实验设计引擎，支持层次化快速对系统建模，二提供一种全新的高性能仿真运行时环境（RTE），
+支持代码热编辑功能，可以不重启仿真系统的情况下热替换正在运行的仿真模型。
 
 \end{abstract}
 
-\textbf{\normalsize 关键字：LMLab，LMICE，RTE，仿真设计语言，建模与仿真}
+\textbf{\normalsize 关键字：LMLab，LMICE \footnote{LMICE: LMICE Message Interacting Computation Environment的首字母缩写，
+一种网络计算与信息通讯技术}
+，RTE \footnote{RTE: Run Time Environment 运行时环境}
+，建模语言，建模与仿真}
 
 
 %目录%
@@ -85,7 +96,8 @@ LMLab是一个全新的建模与仿真软件系统，可运行在从笔记本电
 \section {简介}
 
 
-LMLab系统由 执行管理器（em），运行时环境（lmiced），仿真系统设计语言（lmscript），运行中间件（lmrte）组成。LMICE\footnote{LMICE: LMICE Message Interacting Computation Environment的首字母缩写，一种网络计算与信息通讯技术}是LMLab的支撑技术。
+LMLab系统由 执行管理器（em），运行时环境（lmiced），仿真系统设计语言（lmscript），
+运行中间件（lmrte）组成。LMICE是LMLab的支撑技术。
 
 用户使用实验设计语言创建、配置系统模型。
 
@@ -94,6 +106,10 @@ LMLab系统由 执行管理器（em），运行时环境（lmiced），仿真系
 \section{仿真系统设计语言}
 
 仿真系统设计语言，用组成图、消息表、状态机图、模板代码框架等来设计系统组成模型、定义系统消息、系统事件机制、算法与计算模型、配置系统参数。
+
+层叠建模语言 cascading modeling language
+
+一种语言，能够不精确是语言的优点，不能够精确是语言的缺点，必须要精确是语言的劣势
 
 \section{执行管理器与运行时环境}
 
