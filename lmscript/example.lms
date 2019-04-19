@@ -2,7 +2,7 @@ Title:  Alpha系统测试模型
 Author: He Hao<hehaoslj@sina.com>
 Date:   2019, April
 
-# Alpha 线性回归系统模型
+# Alpha系统测试模型
 
 
 ## 系统环境
@@ -20,41 +20,56 @@ Date:   2019, April
 ### 载入文件数据
 
 从本地环境载入如下K线数据
-stockdata = from "D:\work\data" import(20180101, 20190101) kdata [603861, 603802]
+stockdata = from "D:\work\data" import (20180101, 20190101) kdata [603861, 603802]
 
 载入Tick数据
-comment: tickdata = from "D:\work\data" import(20180101, 20180201) kdata [603861, 603802]
+tickdata = from "D:\work\data" import (20180101, 20180201) tdata [603861, 603802]
 
 ### 定义算法
 
-支持使用 C++, Python, lmpython, lmcpp 等多种代码混合编写。
+支持使用 C++, Python, OpenCL/CUDA; 同时lmpython, lmcpp, lmopencl等多种代码混合编写。
 
 $#~~~lmpython~~~
 
-# 1. 引入系统环境 ctx
 $def with(ctx)
+# 1. 引入系统环境 ctx
+
+$for i in range(10):
+    $:('CONST_SIN_' + str(i)) = $:(math.sin(i))
+$#end-for(i)
 
 # 2. 返回系统环境中 stockdata的数量
 def py_datafile_count():
-    a = $:(ctx).stockdata
-    return len(a)
+    #ctx.stockdata: $:(ctx.stockdata)
+    a  =$:(ctx.stockdata.code[0])
+    return a
 
+# 总共有 $:len(ctx.stockdata.code) 个文件
+
+# sin(1) = $:(math.sin(1));
 
 $#~~~lmpython~~~
 
+# 通过模板语言，定义C++函数与代码
 
 $#~~~lmcpp~~~
-
-// 1. 引入系统环境 ctx
 $def with(ctx)
+// 1. 引入系统环境 ctx
 
 
+$for i in range(10):
+    #define CONST_SIN_$:str(i) $:(math.sin(i));
+$#end-for(i)
 
 // 2. 返回系统环境中 stockdata的数量
 int cpp_datafile_count() {
-    int a = $:(ctx).stockdata.size() ;
+    int a = $:len(ctx.stockdata.code) ;
     return a;
 }
+
+int a;
+a = cpp_datafile_count();
+
 
 
 $#~~~lmcpp~~~

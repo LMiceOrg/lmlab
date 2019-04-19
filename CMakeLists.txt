@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.1.0)
 
 project(LMLab)
 
@@ -23,17 +23,17 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 endif()
 
 # Document
-add_subdirectory(doc)
+#add_subdirectory(doc)
 
 # Execution manager
-add_subdirectory(em)
+#add_subdirectory(em)
 
 # LMice Runtime Environment
 add_subdirectory(lmrte)
 
 # LMice Script
-add_subdirectory(lmscript)
+#add_subdirectory(lmscript)
 
 # LMice Deamon
-add_subdirectory(lmiced)
+#add_subdirectory(lmiced)
 

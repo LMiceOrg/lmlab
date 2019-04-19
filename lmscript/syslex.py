@@ -4,6 +4,7 @@
 import ply.lex
 #import re
 import web.template
+import sys
 
 tokens = (
     "language",
@@ -16,6 +17,8 @@ tokens = (
     "unordered_list",
     "ordered_list",
     "content",
+    "comment",
+    "fileset",
 )
 
 states=(
@@ -113,6 +116,18 @@ def t_newline(t):
     if cnt >=2:
         return t
 
+def t_comment(t):
+    r"(comment|注释)[:：].*"
+    return t
+
+def t_fileset(t):
+    r'(?P<name>\w+)\s*[=]\s*from\s+["](?P<folder>[^"]+)["]\s+import\s+[(](?P<date>[^)]+)[)]\s+(?P<type>\w+)\s+[[](?P<code>[^]]+)[]]'
+    t.fname = t.lexer.lexmatch.group("name")
+    t.ffolder = t.lexer.lexmatch.group("folder")
+    t.fdate = t.lexer.lexmatch.group("date")
+    t.fcode = t.lexer.lexmatch.group("code")
+    t.ftype = t.lexer.lexmatch.group("type")
+    return t
 
 
 def t_content(t):
@@ -124,86 +139,131 @@ def t_error(t):
 
 ply.lex.lex()
 
-ply.lex.input("""
+#ply.lex.input("""
+###~~~python~~~
+#def add(a,b):
+#    return a+b
 
-##~~~python~~~
-def add(a,b):
-    return a+b
+###~~~python~~~
 
+#//~~~cplusplus~~~
+#int add(int a, int b)
+#{
+#    return a+b
+#}
 
+#//~~~cplusplus~~~
 
-##~~~python~~~
+#$#~~~lmpython~~~
 
-//~~~cplusplus~~~
-int add(int a, int b)
-{
-    return a+b
-}
+#<html>
+#</html>
 
-//~~~cplusplus~~~
+#$#~~~lmpython~~~
 
-$#~~~lmpython~~~
+#$#~~~lmcpp~~~
 
-<html>
-</html>
+#int vec_add(b,c)
+#{
+#    int a[10];
+#    $for i in range(10):
+#        $:('a[%d] = b[%d]*c[%d];' % (i,i,i))
 
-$#~~~lmpython~~~
+#    int result = 0;
+#    $for i in range(10):
+#        result += a[$:(i)];
 
-$#~~~lmcpp~~~
+#    return result;
+#}
 
-int vec_add(b,c)
-{
-    int a[10];
-    $for i in range(10):
-        $:('a[%d] = b[%d]*c[%d];' % (i,i,i))
+#$#~~~lmcpp~~~
 
-    int result = 0;
-    $for i in range(10):
-        result += a[$:(i)];
+### welcome to home
 
-    return result;
-}
+#my name is hehao
+#this is bnug
 
-$#~~~lmcpp~~~
+#heading 3
+#========
+#heading 2
+#--
 
-## welcome to home
-
-my name is hehao
-this is bnug
-
-heading 3
-========
-heading 2
---
-
-> quote >  1
->> quote 2
-> quote1
-aaa bb
-cc dd
-eee ffff
+#> quote >  1
+#>> quote 2
+#> quote1
+#aaa bb
+#cc dd
+#eee ffff
 
 
 
-aa
+#aa
 
-# 列表
+## 列表
 
-* a
-* b
-* c
+#* a
+#* b
+#* c
 
-# 有序列表
+## 有序列表
 
-1. aa
-2. bb
-3. cc
+#1. aa
+#2. bb
+#3. cc
 
-""")
-for tok in iter(ply.lex.token, None):
-    if tok.type == "heading":
-        print( repr(tok.type), repr(tok.value), repr(tok.lexer.level) )
-    elif tok.type == "code":
-        print( repr(tok.type), repr(tok.value), repr(tok.lexer.type) )
+#""")
+
+class fileset(object):
+    name=""
+    type=""
+    folder=""
+    date=""
+    code=""
+    def __repr__(self):
+        return '<fileset: %s> %s' % (self.type, self.name)
+
+def show_lex(name):
+    f=open(name,'r', encoding='utf-8')
+    source = f.read()
+    f.close()
+    ply.lex.input(source)
+
+    import math
+
+    ctx=dict()
+    ctx['dir']= dir
+    ctx['math']= math
+
+    for tok in iter(ply.lex.token, None):
+        if tok.type == "heading":
+            print( repr(tok.type), repr(tok.value), repr(tok.lexer.level) )
+        elif tok.type == "code":
+            print( repr(tok.type), repr(tok.lexer.type) )
+            #print(tok.value)
+            if tok.lexer.type == 'lmpython':
+                import lmpython
+                print( lmpython.parser(tok.value.lstrip(), ctx) )
+            elif tok.lexer.type == 'lmcpp':
+                #print (tok.value)
+                import lmpython
+                print( lmpython.parser(tok.value.lstrip(), ctx) )
+        elif tok.type == "fileset":
+            print( repr(tok.type), repr(tok.value) )
+            print("\t", repr(tok.ftype), repr(tok.fname),repr(tok.ffolder))
+            fs = fileset()
+            fs.name = tok.fname
+            fs.type = tok.ftype
+            fs.folder = tok.ffolder
+            fs.date = tok.fdate.split(',')
+            fs.code = tok.fcode.split(',')
+            ctx[fs.name]=fs
+
+        else:
+            print( repr(tok.type), repr(tok.value) )
+
+if __name__ == "__main__":
+    if len(sys.argv)==1:
+        print("usage: syslex.py <lms file>")
+        show_lex("example.lms")
     else:
-        print( repr(tok.type), repr(tok.value) )
+        show_lex(sys.argv[1])

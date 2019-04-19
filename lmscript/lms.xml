@@ -41,7 +41,7 @@
       <item>from</item>
       <item>import</item>
       <item>kdata</item>
-      <item>rawtick</item>
+      <item>tdata</item>
     </list>
     <list name="lmscript_keywords">
       <item>$for</item>
@@ -107,6 +107,7 @@
         <StringDetect attribute="code" context="#pop" String=")"/>
       </context>
       <context attribute="code" lineEndContext="#stay" name="lmpython-code">
+        <IncludeRules context="##Python"/>
 
         <WordDetect attribute="code" context="#pop" String="$#~~~lmpython~~~"/>
 
@@ -115,18 +116,20 @@
         <keyword attribute="Keyword" context="#stay" String="lmscript_keywords"/>
         <RegExpr attribute="comment"  String="[$][#].*$"/>
 
-        <IncludeRules context="##Python"/>
+
 
       </context>
       <context attribute="code" lineEndContext="#stay" name="lmcpp-code">
+        <IncludeRules context="##C++"/>
 
         <WordDetect attribute="code" context="#pop" String="$#~~~lmcpp~~~"/>
 
         <RegExpr attribute="Keyword" context="lmcpp-var" String="^[$]def\s+with" />
         <RegExpr attribute="lmcpp" String="[$][:]([(].*[)]|[^ \t]+)" />
         <keyword attribute="Keyword" context="#stay" String="lmscript_keywords"/>
+        <RegExpr attribute="comment"  String="[$][#].*$"/>
 
-        <IncludeRules context="##C++"/>
+
 
       </context>
       <context attribute="code" lineEndContext="#stay" name="code">
