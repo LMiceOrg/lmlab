@@ -41,7 +41,7 @@
       <item>from</item>
       <item>import</item>
       <item>kdata</item>
-      <item>rawtick</item>
+      <item>tdata</item>
     </list>
     <list name="lmscript_keywords">
       <item>$for</item>
@@ -112,23 +112,32 @@
         <RegExpr attribute="code" context="#pop" String="[$][#][~]{3}lmpython[~]{3}" endRegion="lmpython-code"/>
         <!-- WordDetect attribute="code" context="#pop" String="$#~~~lmpython~~~"/ -->
 
+        <IncludeRules context="##Python"/>
+
+
+
         <RegExpr attribute="Keyword" context="lmcpp-var" String="^[$]def\s+with" />
         <RegExpr attribute="lmcpp" String="[$][:]([(].*[)]|[^ \t]+)" />
         <keyword attribute="Keyword" context="#stay" String="lmscript_keywords"/>
         <RegExpr attribute="comment"  String="[$][#].*$"/>
 
-        <IncludeRules context="##Python"/>
+
 
       </context>
       <context attribute="code" lineEndContext="#stay" name="lmcpp-code">
         <RegExpr attribute="code" context="#pop" String="[$][#][~]{3}lmcpp[~]{3}" endRegion="lmcpp-code"/>
         <!-- WordDetect attribute="code" context="#pop" String="$#~~~lmcpp~~~"/ -->
 
+        <IncludeRules context="##C++"/>
+
+
+
         <RegExpr attribute="Keyword" context="lmcpp-var" String="^[$]def\s+with" />
         <RegExpr attribute="lmcpp" String="[$][:]([(].*[)]|[^ \t]+)" />
         <keyword attribute="Keyword" context="#stay" String="lmscript_keywords"/>
+        <RegExpr attribute="comment"  String="[$][#].*$"/>
 
-        <IncludeRules context="##C++"/>
+
 
       </context>
       <context attribute="code" lineEndContext="#stay" name="code">

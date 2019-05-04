@@ -1,0 +1,11 @@
+{
+    \"Name\" : \"LMQSL\",
+    \"Version\" : \"0.0.1\",
+    \"CompatVersion\" : \"0.0.1\",
+    \"Vendor\" : \"LMICE\",
+    \"Copyright\" : \"(C) LMICE.Org\",
+    \"License\" : \"LMICE\",
+    \"Description\" : \"LMice System Language for QtCreator\",
+    \"Url\" : \"http://www.lmice.org\",
+    $$dependencyList
+}
