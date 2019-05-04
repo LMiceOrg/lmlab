@@ -27,7 +27,7 @@ comment: tickdata = from "D:\work\data" import(20180101, 20180201) kdata [603861
 
 ### 定义算法
 
-支持使用 C++, Python, lmpython, lmcpp 等多种代码混合编写。
+支持使用 C++, Python, OpenCL, lmpython, lmcpp, lmopencl 等多种代码混合编写。
 
 $#~~~lmpython~~~
 
@@ -36,7 +36,7 @@ $def with(ctx)
 
 # 2. 返回系统环境中 stockdata的数量
 def py_datafile_count():
-    a = $:(ctx).stockdata
+    a = $:(ctx.stockdata）
     return len(a)
 
 
@@ -52,7 +52,7 @@ $def with(ctx)
 
 // 2. 返回系统环境中 stockdata的数量
 int cpp_datafile_count() {
-    int a = $:(ctx).stockdata.size() ;
+    int a = $:(ctx.stockdata.size()） ;
     return a;
 }
 

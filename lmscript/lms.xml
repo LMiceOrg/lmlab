@@ -73,8 +73,10 @@
         <RegExpr context="numlist" String="^[\d]+\.\s"/>
         <RegExpr attribute="meta" String="^(Title|Author|Date|Copyright|Revision|CSS|LaTeX\ XSLT|Categories|Tags|BaseName|Excerpt):(.*)+$"/>
         <IncludeRules context="inc"/>
-        <WordDetect context="lmcpp-code" String="$#~~~lmcpp~~~" beginRegion="lmcpp-code"/>
-        <WordDetect context="lmpython-code" String="$#~~~lmpython~~~" beginRegion="lmpython-code"/>
+        <!-- WordDetect context="lmcpp-code" String="$#~~~lmcpp~~~" beginRegion="lmcpp-code"/ -->
+        <RegExpr attribute="code" context="lmcpp-code" String="[$][#][~]{3}lmcpp[~]{3}" beginRegion="lmcpp-code"/>
+        <!-- WordDetect context="lmpython-code" String="$#~~~lmpython~~~" beginRegion="lmpython-code"/ -->
+        <RegExpr context="lmpython-code" String="[$][#][~]{3}lmpython[~]{3}" beginRegion="lmpython-code"/>
       </context>
       <context attribute="blockquote" lineEndContext="#stay" lineEmptyContext="#pop" name="blockquote">
         <RegExpr attribute="bq-strong" String="&strongregex;"/>
@@ -107,8 +109,8 @@
         <StringDetect attribute="code" context="#pop" String=")"/>
       </context>
       <context attribute="code" lineEndContext="#stay" name="lmpython-code">
-
-        <WordDetect attribute="code" context="#pop" String="$#~~~lmpython~~~"/>
+        <RegExpr attribute="code" context="#pop" String="[$][#][~]{3}lmpython[~]{3}" endRegion="lmpython-code"/>
+        <!-- WordDetect attribute="code" context="#pop" String="$#~~~lmpython~~~"/ -->
 
         <RegExpr attribute="Keyword" context="lmcpp-var" String="^[$]def\s+with" />
         <RegExpr attribute="lmcpp" String="[$][:]([(].*[)]|[^ \t]+)" />
@@ -119,8 +121,8 @@
 
       </context>
       <context attribute="code" lineEndContext="#stay" name="lmcpp-code">
-
-        <WordDetect attribute="code" context="#pop" String="$#~~~lmcpp~~~"/>
+        <RegExpr attribute="code" context="#pop" String="[$][#][~]{3}lmcpp[~]{3}" endRegion="lmcpp-code"/>
+        <!-- WordDetect attribute="code" context="#pop" String="$#~~~lmcpp~~~"/ -->
 
         <RegExpr attribute="Keyword" context="lmcpp-var" String="^[$]def\s+with" />
         <RegExpr attribute="lmcpp" String="[$][:]([(].*[)]|[^ \t]+)" />
