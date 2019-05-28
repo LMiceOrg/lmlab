@@ -61,7 +61,7 @@ $for i in range(10):
     #define CONST_SIN_$:str(i) $:(math.sin(i));
 $#end-for(i)
 
-// 2. 返回系统环境中 stockdata的数量
+/* 2. 返回系统环境中 stockdata的数量*/
 int cpp_datafile_count() {
     int a = $:len(ctx.stockdata.code) ;
     return a;
@@ -79,5 +79,11 @@ $#~~~lmcpp~~~
 comment: asf
 
 注释： 手段获得三个
+    ````python-code
+    def aaa(): pass
+    ````
+asd
+
+
 
 

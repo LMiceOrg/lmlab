@@ -1,12 +1,31 @@
-# lmlab README
+# LMLab README
 
-LMLab
+LMICE系统实验室
 
-## Features
+## Components
+
+### lmiced
+
+运行时环境
+
+### lmscript
+
+系统仿真设计语言
 
 ### lmrte
 
-runtime environment
+运行中间件
+
+### lmem
+
+执行管理器
+
+## Features
+
+### dataplane
+
+数据平面
+
 
 
 > Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.

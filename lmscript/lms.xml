@@ -102,14 +102,14 @@
         <WordDetect attribute="code" context="#pop" String="```"/>
         <IncludeRules context="##Python"/>
       </context>
-      <context attribute="code" lineEndContext="#stay" name="lmcpp-var">
+      <context attribute="lmcpp-var" lineEndContext="#stay" name="lmcpp-var">
         <RegExpr attribute="lmcpp" context="#stay" String="\w+" />
-        <StringDetect attribute="code" context="#pop" String=")"/>
+        <StringDetect attribute="lmcpp-var" context="#pop" String=")"/>
       </context>
-      <context attribute="code" lineEndContext="#stay" name="lmpython-code">
+      <context attribute="lmpython-code" lineEndContext="#stay" name="lmpython-code">
         <IncludeRules context="##Python"/>
 
-        <WordDetect attribute="code" context="#pop" String="$#~~~lmpython~~~"/>
+        <WordDetect attribute="lmpython-code" context="#pop" String="$#~~~lmpython~~~"/>
 
         <RegExpr attribute="Keyword" context="lmcpp-var" String="^[$]def\s+with" />
         <RegExpr attribute="lmcpp" String="[$][:]([(].*[)]|[^ \t]+)" />
@@ -119,10 +119,10 @@
 
 
       </context>
-      <context attribute="code" lineEndContext="#stay" name="lmcpp-code">
+      <context attribute="Normal Text" lineEndContext="#stay" name="lmcpp-code">
         <IncludeRules context="##C++"/>
 
-        <WordDetect attribute="code" context="#pop" String="$#~~~lmcpp~~~"/>
+        <WordDetect attribute="lmpython-code" context="#pop" String="$#~~~lmcpp~~~"/>
 
         <RegExpr attribute="Keyword" context="lmcpp-var" String="^[$]def\s+with" />
         <RegExpr attribute="lmcpp" String="[$][:]([(].*[)]|[^ \t]+)" />
