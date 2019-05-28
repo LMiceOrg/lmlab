@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Kate syntax highlight filter for Markdown/MultiMarkdown documents.
 
@@ -104,16 +104,16 @@
         <WordDetect attribute="code" context="#pop" String="```"/>
         <IncludeRules context="##Python"/>
       </context>
-      <context attribute="code" lineEndContext="#stay" name="lmcpp-var">
+      <context attribute="lmcpp-var" lineEndContext="#stay" name="lmcpp-var">
         <RegExpr attribute="lmcpp" context="#stay" String="\w+" />
-        <StringDetect attribute="code" context="#pop" String=")"/>
+        <StringDetect attribute="lmcpp-var" context="#pop" String=")"/>
       </context>
+
       <context attribute="code" lineEndContext="#stay" name="lmpython-code">
         <RegExpr attribute="code" context="#pop" String="[$][#][~]{3}lmpython[~]{3}" endRegion="lmpython-code"/>
         <!-- WordDetect attribute="code" context="#pop" String="$#~~~lmpython~~~"/ -->
 
         <IncludeRules context="##Python"/>
-
 
 
         <RegExpr attribute="Keyword" context="lmcpp-var" String="^[$]def\s+with" />
@@ -124,12 +124,12 @@
 
 
       </context>
+
       <context attribute="code" lineEndContext="#stay" name="lmcpp-code">
         <RegExpr attribute="code" context="#pop" String="[$][#][~]{3}lmcpp[~]{3}" endRegion="lmcpp-code"/>
         <!-- WordDetect attribute="code" context="#pop" String="$#~~~lmcpp~~~"/ -->
 
         <IncludeRules context="##C++"/>
-
 
 
         <RegExpr attribute="Keyword" context="lmcpp-var" String="^[$]def\s+with" />

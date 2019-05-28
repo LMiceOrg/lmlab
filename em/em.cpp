@@ -1,5 +1,4 @@
 /** Copyright 2018, 2019 He Hao<hehaoslj@sina.com> */
-
 #include <stdio.h>
 
 extern "C" int add(int, int);
