@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!--
     Kate syntax highlight filter for Markdown/MultiMarkdown documents.
 
@@ -73,8 +73,10 @@
         <RegExpr context="numlist" String="^[\d]+\.\s"/>
         <RegExpr attribute="meta" String="^(Title|Author|Date|Copyright|Revision|CSS|LaTeX\ XSLT|Categories|Tags|BaseName|Excerpt):(.*)+$"/>
         <IncludeRules context="inc"/>
-        <WordDetect context="lmcpp-code" String="$#~~~lmcpp~~~" beginRegion="lmcpp-code"/>
-        <WordDetect context="lmpython-code" String="$#~~~lmpython~~~" beginRegion="lmpython-code"/>
+        <!-- WordDetect context="lmcpp-code" String="$#~~~lmcpp~~~" beginRegion="lmcpp-code"/ -->
+        <RegExpr attribute="code" context="lmcpp-code" String="[$][#][~]{3}lmcpp[~]{3}" beginRegion="lmcpp-code"/>
+        <!-- WordDetect context="lmpython-code" String="$#~~~lmpython~~~" beginRegion="lmpython-code"/ -->
+        <RegExpr context="lmpython-code" String="[$][#][~]{3}lmpython[~]{3}" beginRegion="lmpython-code"/>
       </context>
       <context attribute="blockquote" lineEndContext="#stay" lineEmptyContext="#pop" name="blockquote">
         <RegExpr attribute="bq-strong" String="&strongregex;"/>
@@ -106,10 +108,13 @@
         <RegExpr attribute="lmcpp" context="#stay" String="\w+" />
         <StringDetect attribute="lmcpp-var" context="#pop" String=")"/>
       </context>
-      <context attribute="lmpython-code" lineEndContext="#stay" name="lmpython-code">
+
+      <context attribute="code" lineEndContext="#stay" name="lmpython-code">
+        <RegExpr attribute="code" context="#pop" String="[$][#][~]{3}lmpython[~]{3}" endRegion="lmpython-code"/>
+        <!-- WordDetect attribute="code" context="#pop" String="$#~~~lmpython~~~"/ -->
+
         <IncludeRules context="##Python"/>
 
-        <WordDetect attribute="lmpython-code" context="#pop" String="$#~~~lmpython~~~"/>
 
         <RegExpr attribute="Keyword" context="lmcpp-var" String="^[$]def\s+with" />
         <RegExpr attribute="lmcpp" String="[$][:]([(].*[)]|[^ \t]+)" />
@@ -119,10 +124,13 @@
 
 
       </context>
-      <context attribute="Normal Text" lineEndContext="#stay" name="lmcpp-code">
+
+      <context attribute="code" lineEndContext="#stay" name="lmcpp-code">
+        <RegExpr attribute="code" context="#pop" String="[$][#][~]{3}lmcpp[~]{3}" endRegion="lmcpp-code"/>
+        <!-- WordDetect attribute="code" context="#pop" String="$#~~~lmcpp~~~"/ -->
+
         <IncludeRules context="##C++"/>
 
-        <WordDetect attribute="lmpython-code" context="#pop" String="$#~~~lmcpp~~~"/>
 
         <RegExpr attribute="Keyword" context="lmcpp-var" String="^[$]def\s+with" />
         <RegExpr attribute="lmcpp" String="[$][:]([(].*[)]|[^ \t]+)" />

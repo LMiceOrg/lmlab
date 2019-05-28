@@ -27,6 +27,7 @@ tickdata = from "D:\work\data" import (20180101, 20180201) tdata [603861, 603802
 
 ### 定义算法
 
+
 支持使用 C++, Python, OpenCL/CUDA; 同时lmpython, lmcpp, lmopencl等多种代码混合编写。
 
 $#~~~lmpython~~~
@@ -40,6 +41,7 @@ $#end-for(i)
 
 # 2. 返回系统环境中 stockdata的数量
 def py_datafile_count():
+
     #ctx.stockdata: $:(ctx.stockdata)
     a  =$:(ctx.stockdata.code[0])
     return a
