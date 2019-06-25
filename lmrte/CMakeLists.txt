@@ -10,9 +10,9 @@ LIST(APPEND lmrte_sources
     lmrte.h
     lmrte.hpp)
 
-add_executable(${PROJECT_NAME} ${lmrte_sources})
-add_dependencies(${PROJECT_NAME} eal_static)
-target_link_libraries(${PROJECT_NAME} eal_static)
+add_executable(${PROJECT_NAME}.exe ${lmrte_sources})
+add_dependencies(${PROJECT_NAME}.exe eal_static)
+target_link_libraries(${PROJECT_NAME}.exe eal_static)
 add_definitions(-DLMRTE_PROJECT)
 
 

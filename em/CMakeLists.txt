@@ -7,4 +7,4 @@ set(LIBRARY_OUTPUT_PATH  "${CMAKE_BINARY_DIR}")
 
 set(em_src em.cpp em1.c)
 
-add_executable(${PROJECT_NAME} ${em_src})
+add_executable(${PROJECT_NAME}.exe ${em_src})

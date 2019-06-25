@@ -17,12 +17,15 @@ LIST(APPEND lmiced_sources
     lmice_eal_list.c
    )
 
-add_executable(${PROJECT_NAME} ${lmiced_sources})
-add_dependencies(${PROJECT_NAME} eal_static)
-target_link_libraries(${PROJECT_NAME} eal_static)
-target_include_directories(${PROJECT_NAME} PUBLIC ../lmrte)
+add_executable(${PROJECT_NAME}.exe ${lmiced_sources})
+add_dependencies(${PROJECT_NAME}.exe eal_static)
+target_link_libraries(${PROJECT_NAME}.exe eal_static)
+target_include_directories(${PROJECT_NAME}.exe PUBLIC ../lmrte)
+
+if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 #添加管理员权限
 #/SUBSYSTEM:WINDOWS
 set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS
     "/MANIFESTUAC:\"level='requireAdministrator'
     uiAccess='false'\" ")
+endif()

@@ -3,6 +3,6 @@
 
 extern "C" int add(int, int);
 int main() {
-  wprintf(L"execute manager %d\n", add(12, 23));
+  printf("execute manager %d\n", add(12, 23));
   return 0;
 }
