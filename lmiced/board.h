@@ -26,17 +26,20 @@ lmboard
 信息数据.
 lmcontent
  -----
-| lmbrd_desc
+| lmcnt_desc   定长 128 字节
 |-----
-| lmbrd_usage
+| lmcnt_usage  变长 1bit --> 16k
 |-----
-| lmbrd_index
+| lmcnt_index  
 |-----
 | ...<lmdata> 信息数据
 
+|0 -- 24 | -- 128 | -- 可变长度 | -- 可变长度 | -- 剩余部分 |
+ 链表头   描述信息   使用情况      信息索引      信息数据
+
 - 主共享区域
 
-系统第一个共享区域，包含系统信息数据列表。
+系统第一个共享区域，链表第一个记录。
 
 - 从共享区域
 
@@ -75,15 +78,8 @@ lmiced:
 lmiced:
   lmbrd_delete(inst_id);
 
-- 初始化共享区域
-
-系统服务端执行创建后完成初始化（lmbrd_init）。
-
-lmiced:
-  board = lmbrd_init();
-
 -
-app本身也是一种数据
+app本身也是一种数据；app是系统的一个视图；系统存在多个视图
 
 app -->|打开| 共享区域
 app 注册 自己资源
@@ -113,8 +109,6 @@ typedef int lmbrd_fd;
 /* 创建共享区域 */
 lmbrd_pt lmbrd_create(uint64_t id, unsigned int size);
 
-/* 初始化共享区域 */
-void lmbrd_init(lmbrd_pt ptr);
 
 /* 删除共享区域 */
 void lmbrd_delete(lmbrd_pt ptr);
